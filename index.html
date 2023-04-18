@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Lost Treasure</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      line-height: 1.5;
+    }
+    .scene {
+      margin-bottom: 20px;
+    }
+    .options {
+      list-style-type: none;
+      padding: 0;
+    }
+    .option {
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline;
+      margin-bottom: 10px;
+    }
+  </style>
+  <script>
+    const gameData = {
+      "title": "The Lost Treasure",
+      "start": "1",
+      "scenes": {
+      {
+"title": "The Lost Treasure",
+"start": "1",
+"scenes": {
+"1": {
+"text": "You find yourself at the entrance of a mysterious cave. There's a sign that says 'Beware: The Lost Treasure lies within.'",
+"options": [
+{
+"text": "Enter the cave",
+"scene": "2"
+},
+{
+"text": "Walk away",
+"scene": "3"
+}
+]
+},
+"2": {
+"text": "As you venture deeper into the cave, you reach a fork in the path. There are two passages: left and right.",
+"options": [
+{
+"text": "Take the left passage",
+"scene": "4"
+},
+{
+"text": "Take the right passage",
+"scene": "5"
+}
+]
+},
+"3": {
+"text": "You decide to play it safe and walk away from the cave. Maybe you'll find another adventure another day.",
+"options": [
+{
+"text": "Play again",
+"scene": "1"
+}
+]
+},
+"4": {
+"text": "The left passage leads you to a room with a chest in the middle. It's locked, and there's a riddle written on it: 'What has keys but can't open locks?'",
+"options": [
+{
+"text": "Answer: 'A piano'",
+"scene": "6"
+},
+{
+"text": "Give up",
+"scene": "7"
+}
+]
+},
+"5": {
+"text": "The right passage leads you to a dark room. Suddenly, the floor crumbles beneath you and you fall into a pit. It's game over.",
+"options": [
+{
+"text": "Play again",
+"scene": "1"
+}
+]
+},
+"6": {
+"text": "The chest clicks open, revealing the Lost Treasure inside. Congratulations! You've found the treasure and won the game!",
+"options": [
+{
+"text": "Play again",
+"scene": "1"
+}
+]
+},
+"7": {
+"text": "You give up on the riddle and leave the chest behind. You make your way back to the cave entrance and start again.",
+"options": [
+{
+"text": "Play again",
+"scene": "1"
+}
+]
+}
+}
+}
+      }
+    };
+javascript
+Copy code
+function loadScene(sceneId) {
+  const sceneData = gameData.scenes[sceneId];
+  document.querySelector('.scene-text').textContent = sceneData.text;
+
+  const optionsList = document.querySelector('.options');
+  optionsList.innerHTML = '';
+
+  sceneData.options.forEach(option => {
+    const listItem = document.createElement('li');
+    listItem.textContent = option.text;
+    listItem.classList.add('option');
+    listItem.addEventListener('click', () => loadScene(option.scene));
+    optionsList.appendChild(listItem);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('title').textContent = gameData.title;
+  loadScene(gameData.start);
+});
+  </script>
+</head>
+<body>
+  <h1>The Lost Treasure</h1>
+  <div class="scene">
+    <p class="scene-text"></p>
+    <ul class="options"></ul>
+  </div>
+</body>
+</html>
